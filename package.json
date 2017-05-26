@@ -1,0 +1,24 @@
+{
+  "name": "express-json-server",
+  "version": "0.0.1",
+  "description": "express json server",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./sample/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiewulong/express-json-server.git"
+  },
+  "keywords": [
+    "express",
+    "json",
+    "server"
+  ],
+  "author": "xiewulong <xiewulong@vip.qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xiewulong/express-json-server/issues"
+  },
+  "homepage": "https://github.com/xiewulong/express-json-server#readme"
+}
