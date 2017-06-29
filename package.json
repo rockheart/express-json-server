@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/xiewulong/express-json-server/issues"
   },
-  "homepage": "https://github.com/xiewulong/express-json-server#readme"
+  "homepage": "https://github.com/xiewulong/express-json-server#readme",
+  "dependencies": {
+    "connect-pause": "^0.1.0",
+    "json-server": "^0.10.3"
+  },
+  "devDependencies": {
+    "express": "^4.15.3",
+    "faker": "^4.1.0"
+  }
 }
