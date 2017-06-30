@@ -8,16 +8,15 @@
 
 const fs = require('fs');
 const path = require('path');
+const compression = require('compression');
+const cors = require('cors');
 const express = require('express');
 const jsonServer = require('json-server');
 const pause = require('connect-pause');
 
 const defaultOptions = {
-	delay: 0,
 	id: 'id',
-	json: 'db.json',
-	noCors: false,
-	noGzip: false,
+	jsonSpaces: 2,
 	route: '/api',
 	tables: {},
 };
@@ -42,13 +41,16 @@ class JsonServer {
 	}
 
 	init() {
+		this.settings();
 		this.routes();
 		this.middlewares();
 		this.delay();
-		this.defaults();
 		this.tables();
 		this.router();
+	}
 
+	settings() {
+		this.app.set('json spaces', this.options.jsonSpaces);
 	}
 
 	routes() {
@@ -60,11 +62,39 @@ class JsonServer {
 	}
 
 	middlewares() {
-		if(!this.options.middlewares) {
-			return;
+		let middlewares = [];
+		if(this.options.noGzip) {
+			middlewares.push(compression());
+		}
+		if(!this.options.noCors) {
+			middlewares.push(cors({origin: true, credntials: true}));
+		}
+		if(this.options.readOnly) {
+			middlewares.push((req, res, next) => {
+				if(req.method == 'GET') {
+					next();
+				} else {
+					res.sendStatus(403);
+				}
+			});
 		}
 
-		this.app.use(this.options.route, this.options.middlewares);
+		// No cache for IE
+		// https://support.microsoft.com/en-us/kb/234067
+		middlewares.push((req, res, next) => {
+			res.header('Cache-Control', 'no-cache');
+			res.header('Pragma', 'no-cache');
+			res.header('Expires', '-1');
+
+			next();
+		});
+
+
+		if(this.options.middlewares) {
+			middlewares = middlewares.concat(this.options.middlewares);
+		}
+
+		this.app.use(this.options.route, middlewares);
 	}
 
 	delay() {
@@ -73,10 +103,6 @@ class JsonServer {
 		}
 
 		this.app.use(this.options.route, pause(this.options.delay));
-	}
-
-	defaults() {
-
 	}
 
 	tables() {
@@ -91,7 +117,7 @@ class JsonServer {
 		}
 
 		if(this.options.json === true) {
-			this.options.json = defaultOptions.json;
+			this.options.json = 'db.json';
 		}
 
 		let jsonPath = `${dbPath}/${this.options.json}`;

@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/xiewulong/express-json-server#readme",
   "dependencies": {
+    "compression": "^1.6.2",
     "connect-pause": "^0.1.0",
+    "cors": "^2.8.3",
     "json-server": "^0.10.3"
   },
   "devDependencies": {
