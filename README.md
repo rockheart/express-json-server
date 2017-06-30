@@ -36,17 +36,19 @@ $ npm i [-S] express-json-server
 ```js
 // app.js
 const path = require('path');
-
+const logger = require('morgan');
 const express = require('express');
-const autoController = require('express-json-server');
+const jsonServer = require('express-json-server');
 
 const app = express();
 
+app.use(logger('dev'));
+
 // 配置db路径
-app.autoController(path.join(__dirname, 'db'));
+app.jsonServer(path.join(__dirname, 'db'));
 
 // 另一种运行方式
-// autoController(app, path.join(__dirname, 'db'));
+// jsonServer(app, path.join(__dirname, 'db'));
 
 app.listen(3000);
 ```
