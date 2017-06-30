@@ -6,12 +6,12 @@
 
 <details>
 
-* [概览](#Overview)
-* [安装](#Install)
-* [使用](#Useage)
-* [配置](#Configure)
-* [范例](#Sample)
-* [License](#License)
+* [概览](#overview)
+* [安装](#install)
+* [使用](#useage)
+* [配置](#configure)
+* [范例](#sample)
+* [License](#license)
 
 </details>
 
