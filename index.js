@@ -63,7 +63,7 @@ class JsonServer {
 
 	middlewares() {
 		let middlewares = [];
-		if(this.options.noGzip) {
+		if(!this.options.noGzip) {
 			middlewares.push(compression());
 		}
 		if(!this.options.noCors) {
